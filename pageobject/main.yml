@@ -1,0 +1,10 @@
+login:
+  - by: css selector
+    locator: input.ivu-input-large
+    action: send_keys
+  - by: css selector
+    locator: input.ivu-input-large
+    action: send_keys
+  - by: css selector
+    locator: button.ivu-btn-primary
+    action: click
