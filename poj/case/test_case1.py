@@ -1,6 +1,8 @@
-import time
+# import sys
+#
+# print(sys.path)
 
-from pageobject.app import App
+from ..app import App
 
 
 class Testcase1:

@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 def black_list(fun):
     def wapper(*args,**kwargs):
         # 避免循环导入
-        from pageobject.base_page import BasePage
+        from poj.base_page import BasePage
         # 黑名单
         black_list_s = [(By.CSS_SELECTOR, 'button.ivu-btn-primary1')]
         #

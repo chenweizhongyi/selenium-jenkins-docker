@@ -1,6 +1,6 @@
 import time
 
-from pageobject.app import App
+from poj.app import App
 
 
 class Testcase1:

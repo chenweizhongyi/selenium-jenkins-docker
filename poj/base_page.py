@@ -4,7 +4,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-from pageobject.wrapper import black_list
+from poj.wrapper import black_list
 
 
 class BasePage:

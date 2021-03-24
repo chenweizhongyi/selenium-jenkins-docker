@@ -4,7 +4,7 @@ import pytest
 import yaml
 from selenium.webdriver.common.by import By
 
-from pageobject.base_page import BasePage
+from .base_page import BasePage
 
 
 class Main(BasePage):
