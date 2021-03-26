@@ -1,0 +1,37 @@
+FROM ubuntu:latest
+
+ENV JDK=jdk-8u281-linux-x64.tar.gz
+ENV JNKVIS=281
+
+ADD sources.list /root/sources.list
+
+USER root
+
+WORKDIR /
+
+ADD $JDK /usr/lib/jvm/
+
+ENV JAVA_HOME=/usr/lib/jvm/jdk1.8.0_$JDKVIS
+ENV JRE_HOME=${JAVA_HOME}/jre
+ENV CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+ENV PATH=${JAVA_HOME}/bin:$PATH
+
+
+RUN cp /root/sources.list /etc/apt/sources.list.d/aliyun.list \
+    && apt-get update \
+    && apt-get install -y openssh-server \
+    && apt-get install -y net-tools \
+    && apt-get install -y vim \
+    && mkdir -p /var/run/sshd \
+    && mkdir -p mkdir/root/.ssh/ \
+    && echo root:123456 | chpasswd \
+    && ssh-keygen -q -t rsa -b 2048 -f /etc/ssh/ssh_host_rsa_key -P '' -N '' \
+    && sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
+
+EXPOSE 22
+
+RUN  tar zxvf /usr/lib/jvm/$JDK \
+     && chown root:root jdk1.8.0_$JDKVIS -R \
+     && source ~/.bashrc
+
+CMD /usr/sbin/sshd -D &
