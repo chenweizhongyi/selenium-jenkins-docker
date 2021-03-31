@@ -2,7 +2,7 @@
 #
 # print(sys.path)
 
-from ..app import App
+from poj.app import App
 
 
 class Testcase1:

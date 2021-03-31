@@ -2,8 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from .base_page import BasePage
-from .main import Main
+from poj.base_page import BasePage
+from poj.main import Main
 
 
 class App(BasePage):
