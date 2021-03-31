@@ -41,37 +41,24 @@ ENV PYTHON_VERSION 3.8.1
 ENV PYTHON_PIP_VERSION 8.1.2
 
 RUN curl -fSL "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" -o python.tar.xz \
-RUN curl -fSL "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc" -o python.tar.xz.
+RUN curl -fSL "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc" -o python.tar.xz
 
+ENV PATH $PATH:/usr/local/python3/bin/
+ENV PYTHONIOENCODING utf-8
 RUN set -ex \
-        && export GNUPGHOME="$(mktemp -d)" \
-#        && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$GPG_KEY" \
-        && gpg --batch --verify python.tar.xz.asc python.tar.xz \
-        && rm -r "$GNUPGHOME" python.tar.xz.asc \
-        && mkdir -p /usr/src/python \
-        && tar -xJC /usr/src/python --strip-components=1 -f python.tar.xz \
-        && rm python.tar.xz \
-        \
-        && cd /usr/src/python \
-        && ./configure --enable-shared --enable-unicode=ucs4 \
-        && make -j$(nproc) \
-        && make install \
-        && ldconfig \
-        && pip3 install --no-cache-dir --upgrade --ignore-installed pip==$PYTHON_PIP_VERSION \
-        && find /usr/local -depth \
-                \( \
-                    \( -type d -a -name test -o -name tests \) \
-                    -o \
-                    \( -type f -a -name '*.pyc' -o -name '*.pyo' \) \
-                \) -exec rm -rf '{}' + \
-        && rm -rf /usr/src/python ~/.cache
-
-# make some useful symlinks that are expected to exist
-RUN cd /usr/local/bin \
-        && ln -s easy_install-3.5 easy_install \
-        && ln -s idle3 idle \
-        && ln -s pydoc3 pydoc \
-        && ln -s python3 python \
-        && ln -s python3-config python-config
+	&& mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup \
+	&& curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo \
+	&& yum makecache \
+	&& sed -i -e '/mirrors.cloud.aliyuncs.com/d' -e '/mirrors.aliyuncs.com/d' /etc/yum.repos.d/CentOS-Base.repo \
+	&& yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make wget \
+	&& yum clean all \
+	&& mkdir /usr/local/python3 \
+	&& wget https://www.python.org/ftp/python/3.6.8/Python-3.6.8.tar.xz \
+	&& tar -xvJf  Python-3.6.8.tar.xz && rm -f Python-3.6.8.tar.xz \
+	&& cd Python-3.6.8 \
+	&& ./configure prefix=/usr/local/python3 \
+	&& make && make install \
+	&& cd .. \
+	&& rm -rf Python-3.6.8
 
 CMD ["/usr/sbin/sshd", "-D"]
