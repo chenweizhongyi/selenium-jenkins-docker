@@ -1,10 +1,12 @@
 login:
-  - by: css selector
-    locator: input.ivu-input-large
+  - by: xpath
+    locator: //*[@id="app"]/div/div[2]/div[2]/form/div[1]/div/div/input
     action: send_keys
-  - by: css selector
-    locator: input.ivu-input-large
+#    value: '我是货主'
+  - by: xpath
+    locator: //*[@id="app"]/div/div[2]/div[2]/form/div[2]/div/div[1]/input
     action: send_keys
-  - by: css selector
-    locator: button.ivu-btn-primary
+#    value: '123456'
+  - by: xpath
+    locator: //*[@id="app"]/div/div[2]/div[2]/form/div[4]/div/button
     action: click

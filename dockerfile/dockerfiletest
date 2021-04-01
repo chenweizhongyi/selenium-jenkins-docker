@@ -2,6 +2,7 @@
 FROM hub.c.163.com/netease_comb/centos:7
 MAINTAINER netease
 
+WORKDIR /root
 # 更新yum源
 RUN yum makecache fast && yum -y update glibc
 
@@ -33,18 +34,19 @@ RUN yum install -y python.*
 ENV LANG C.UTF-8
 
 # gpg: key F73C700D: public key "Larry Hastings <larry@hastings.org>" imported
-ENV GPG_KEY 97FC712E4C024BBEA48A61ED3A5CA953F73C700D
+#ENV GPG_KEY 97FC712E4C024BBEA48A61ED3A5CA953F73C700D
 
 ENV PYTHON_VERSION 3.8.1
 
 # if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
 ENV PYTHON_PIP_VERSION 8.1.2
 
-RUN curl -fSL "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" -o python.tar.xz \
-RUN curl -fSL "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc" -o python.tar.xz
+#RUN curl -fSL "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" -o python.tar.xz \
+#RUN curl -fSL "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc" -o python.tar.xz
 
 ENV PATH $PATH:/usr/local/python3/bin/
 ENV PYTHONIOENCODING utf-8
+
 RUN set -ex \
 	&& mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup \
 	&& curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo \
@@ -53,9 +55,10 @@ RUN set -ex \
 	&& yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make wget \
 	&& yum clean all \
 	&& mkdir /usr/local/python3 \
-	&& wget https://www.python.org/ftp/python/3.6.8/Python-3.6.8.tar.xz \
-	&& tar -xvJf  Python-3.6.8.tar.xz && rm -f Python-3.6.8.tar.xz \
-	&& cd Python-3.6.8 \
+	&& wget https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tar.xz
+
+RUN tar -xvJf  Python-$PYTHON_VERSION.tar.xz && rm -f Python-$PYTHON_VERSION.tar.xz \
+	&& cd Python-$PYTHON_VERSION \
 	&& ./configure prefix=/usr/local/python3 \
 	&& make && make install \
 	&& cd .. \
