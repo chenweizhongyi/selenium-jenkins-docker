@@ -1,9 +1,11 @@
 # import sys
 #
 # print(sys.path)
-import pytest
+import os
 
-from poj.app import App
+import pytest
+import yaml
+from ..app import App
 
 
 class Testcase1:
@@ -11,11 +13,13 @@ class Testcase1:
         self.app = App()
     def teardown(self):
         self.app.stop()
+    print(os.getcwd())
 
-    @pytest.mark.parametrize('name, passwd', [('我是货主', '123456'), ('我是经纪人', '123456')])
+    @pytest.mark.parametrize('name, passwd', yaml.safe_load(open('./poj/case/test_case1.yaml',encoding='UTF-8')))
     def test_case_login(self, name, passwd):
+        # print(yaml.safe_load(open('./poj/case/test_case1.yaml', encoding='UTF-8')))
         self.main = self.app.start().main()
-        self.main.login(name,passwd)
+        self.main.login(name, passwd)
 
     # def test_case_login2(self):
     #     self.app.start().main().login()

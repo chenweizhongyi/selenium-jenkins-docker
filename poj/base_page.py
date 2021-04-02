@@ -1,4 +1,5 @@
 import json
+import os
 
 import yaml
 from selenium import webdriver
@@ -7,7 +8,6 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-from poj.wrapper import black_list
 
 
 class BasePage:
@@ -46,7 +46,7 @@ class BasePage:
         return elements
 
     def steps(self, path):
-        yaml.safe_load('./main.yml')
+        print(os.getcwd())
         with open(path, encoding='utf-8') as f:
             steps = yaml.safe_load(f)['login']
         raw = json.dumps(steps)
@@ -54,6 +54,7 @@ class BasePage:
         for key, value in self.params.items():
             raw = raw.replace('${' + key + '}', value)
         steps = json.loads(raw)
+        print(steps)
         for step in steps:
             if 'action' in step.keys():
                 action = step['action']

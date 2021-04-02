@@ -1,6 +1,6 @@
 import time
 
-from poj.app import App
+from ..app import App
 
 
 class Testcase1:

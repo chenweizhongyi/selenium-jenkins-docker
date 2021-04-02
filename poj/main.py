@@ -1,5 +1,5 @@
 
-from poj.base_page import BasePage
+from .base_page import BasePage
 
 
 class Main(BasePage):
@@ -9,8 +9,7 @@ class Main(BasePage):
     #     self.find(By.CSS_SELECTOR,'button.ivu-btn-primary').click()
 
     def login(self, name, passwd):
-        self.params['name'] = name
+        self.params['value'] = name
         self.params['passwd'] = passwd
-        self.steps('../main.yml')
+        self.steps('./poj/main.yml')
 
-    def

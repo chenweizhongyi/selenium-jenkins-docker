@@ -2,11 +2,11 @@ login:
   - by: xpath
     locator: //*[@id="app"]/div/div[2]/div[2]/form/div[1]/div/div/input
     action: send_keys
-#    value: '我是货主'
+    value: ${name}
   - by: xpath
     locator: //*[@id="app"]/div/div[2]/div[2]/form/div[2]/div/div[1]/input
     action: send_keys
-#    value: '123456'
+    value: ${passwd}
   - by: xpath
     locator: //*[@id="app"]/div/div[2]/div[2]/form/div[4]/div/button
     action: click
