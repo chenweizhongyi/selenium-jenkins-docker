@@ -10,3 +10,9 @@ login:
   - by: xpath
     locator: //*[@id="app"]/div/div[2]/div[2]/form/div[4]/div/button
     action: click
+
+register:
+  - by: xpath
+    locator: //*[@id="app"]/div/div[2]/div[2]/div[5]/span[3]
+    action: click
+#    value: ${name}

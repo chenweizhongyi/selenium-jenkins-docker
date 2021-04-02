@@ -17,9 +17,9 @@ class Testcase1:
 
     @pytest.mark.parametrize('name, passwd', yaml.safe_load(open('./poj/case/test_case1.yaml',encoding='UTF-8')))
     def test_case_login(self, name, passwd):
-        # print(yaml.safe_load(open('./poj/case/test_case1.yaml', encoding='UTF-8')))
-        self.main = self.app.start().main()
-        self.main.login(name, passwd)
+        main = self.app.start().main()
+        main.login(name, passwd)
 
-    # def test_case_login2(self):
-    #     self.app.start().main().login()
+    def test_case_login2(self):
+        main = self.app.start().main()
+        main.register().input_value()

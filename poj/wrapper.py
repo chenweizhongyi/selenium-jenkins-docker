@@ -1,16 +1,20 @@
+import logging
+
 from selenium.webdriver.common.by import By
 
 
 
 def black_list(fun):
+    logging.basicConfig(level=logging.INFO)
     def wapper(*args,**kwargs):
         # 避免循环导入
-        from poj.base_page import BasePage
+        from .base_page import BasePage
         # 黑名单
         black_list_s = [(By.CSS_SELECTOR, 'button.ivu-btn-primary1')]
         #
         instance:BasePage = args[0]
         try:
+            logging.info('run' + fun.__name__ + "\n args: \n" + repr(args[1:]) + "\n" + repr(kwargs))
             element = fun(*args,**kwargs)
             # print("没有弹窗1")
             return element

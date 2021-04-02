@@ -1,5 +1,5 @@
-
 from .base_page import BasePage
+from .register import Register
 
 
 class Main(BasePage):
@@ -9,7 +9,10 @@ class Main(BasePage):
     #     self.find(By.CSS_SELECTOR,'button.ivu-btn-primary').click()
 
     def login(self, name, passwd):
-        self.params['value'] = name
+        self.params['name'] = name
         self.params['passwd'] = passwd
         self.steps('./poj/main.yml')
 
+    def register(self) -> Register:
+        self.steps('./poj/main.yml')
+        return Register(self._driver)

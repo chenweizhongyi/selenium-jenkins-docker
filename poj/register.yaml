@@ -1,0 +1,28 @@
+input_value:
+  - by: xpath
+    locator: //*[@id="app"]/div/div[2]/div/div[2]/form/div[1]/div/div/input
+    action: send_keys
+    value: 123
+  - by: xpath
+    locator: //*[@id="app"]/div/div[2]/div/div[2]/form/div[2]/div/div/input
+    action: send_keys
+    value: 15236547859
+  - by: xpath
+    locator: //*[@id="app"]/div/div[2]/div/div[2]/form/div[3]/div/div/span/span[1]
+    action: click
+#  - by: xpath
+#      locator: //*[@id="app"]/div/div[2]/div/div[2]/form/div[3]/div/div/span/span[1]
+#      action: re
+#      pattern: '\d*\d'
+  - by: xpath
+    locator: //*[@id="app"]/div/div[2]/div/div[2]/form/div[4]/div/div/input
+    action: send_keys
+    value: 123456
+  - by: xpath
+    locator: //*[@id="app"]/div/div[2]/div/div[2]/form/div[5]/div/div/input
+    action: send_keys
+    value: 123456
+  - by: xpath
+    locator: //*[@id="app"]/div/div[2]/div/div[2]/form/div[6]/div/button/span
+    action: click
+#    value: 123456
