@@ -13,3 +13,4 @@ class Main(BasePage):
         self.params['passwd'] = passwd
         self.steps('../main.yml')
 
+    def
