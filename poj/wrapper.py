@@ -15,6 +15,7 @@ def black_list(fun):
         instance:BasePage = args[0]
         try:
             logging.info('run' + fun.__name__ + "\n args: \n" + repr(args[1:]) + "\n" + repr(kwargs))
+            print('run :' + fun.__name__ + "\n args: \n" + repr(args[1:]) + "\n" + repr(kwargs))
             element = fun(*args,**kwargs)
             # print("没有弹窗1")
             return element
